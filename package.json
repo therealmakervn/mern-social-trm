@@ -13,12 +13,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/shamahoque/mern-social.git"
+    "url": "https://github.com/therealmakervn/mern-social-trm.git"
   },
-  "homepage": "https://github.com/shamahoque/mern-social",
+  "homepage": "https://github.com/therealmakervn/mern-social-trm",
   "main": "./dist/server.generated.js",
   "scripts": {
-    "development": "nodemon",
+    "development": "SET NODE_OPTIONS=--openssl-legacy-provider && npx webpack --mode=development --config webpack.config.server.js && nodemon --exec \"npx webpack --mode=development --config webpack.config.server.js && node ./dist/server.generated.js\"",
     "build": "webpack --config webpack.config.client.production.js && webpack --mode=production --config webpack.config.server.js",
     "start": "NODE_ENV=production node ./dist/server.generated.js"
   },
@@ -33,8 +33,8 @@
     "babel-loader": "8.1.0",
     "file-loader": "6.0.0",
     "nodemon": "2.0.2",
-    "webpack": "4.42.1",
-    "webpack-cli": "3.3.11",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
     "webpack-dev-middleware": "3.7.2",
     "webpack-hot-middleware": "2.25.0",
     "webpack-node-externals": "1.7.2"
