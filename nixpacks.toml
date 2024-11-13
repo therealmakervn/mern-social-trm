@@ -1,12 +1,10 @@
+[build]
+builder = "nixpacks"
+buildCommand = "npm run build"
+
+[deploy]
+startCommand = "npm start"
+restartPolicyType = "ON_FAILURE"
+
 [variables]
-    NPM_CONFIG_UPDATE_NOTIFIER = 'false'
-    NPM_CONFIG_FUND = 'false'
-
-[phases.setup]
-    nixPkgs = ['python38', 'nodejs-14_x']
-
-[phases.install]
-    cmds = ['npm install --legacy-peer-deps']
-
-[phases.build]
-    cmds = ['npm run build']
+NODE_ENV = "production"
