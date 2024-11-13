@@ -1,19 +1,18 @@
-# Stage 1: Cài đặt Python
-FROM python:3.8-slim as python-base
+FROM node:14-slim
 
-# Stage 2: Build ứng dụng
-FROM node:14
-
-# Copy Python từ stage 1
-COPY --from=python-base /usr/local/bin/python3.8 /usr/local/bin/python3.8
-COPY --from=python-base /usr/local/lib/python3.8 /usr/local/lib/python3.8
-COPY --from=python-base /usr/local/lib/libpython3.8.so* /usr/local/lib/
-RUN ln -sf /usr/local/bin/python3.8 /usr/local/bin/python
+# Cài đặt Python 3.8
+RUN apt-get update && \
+    apt-get install -y python3.8 \
+    python3-pip \
+    build-essential && \
+    ln -sf /usr/bin/python3.8 /usr/bin/python && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Thiết lập môi trường
 ENV NODE_ENV=production
 ENV NPM_CONFIG_LOGLEVEL=error
-ENV PYTHON=/usr/local/bin/python3.8
+ENV PYTHON=/usr/bin/python3.8
 
 WORKDIR /app
 
