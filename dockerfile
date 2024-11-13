@@ -1,18 +1,8 @@
-FROM node:14
-
-# Cài đặt Python 3.8 và các dependencies cần thiết
-RUN apt-get update && \
-    apt-get install -y \
-    python3.8 \
-    python3.8-dev \
-    python3-pip \
-    build-essential && \
-    update-alternatives --install /usr/bin/python python /usr/bin/python3.8 1
+FROM cimg/python:3.8-node
 
 # Thiết lập môi trường
 ENV NODE_ENV=production
 ENV NPM_CONFIG_LOGLEVEL=error
-ENV PYTHON=/usr/bin/python3.8
 
 WORKDIR /app
 
