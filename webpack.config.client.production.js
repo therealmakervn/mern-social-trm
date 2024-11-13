@@ -25,6 +25,9 @@ const config = {
                 use: 'file-loader'
             }
         ]
+    },
+    optimization: {
+      minimize: true
     }
 }
 

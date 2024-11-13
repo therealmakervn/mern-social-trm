@@ -1,0 +1,411 @@
+{
+  "name": "TRM Platform Rules",
+  "version": "1.2",
+  "description": "Extended rules for TRM platform based on MERN Social architecture with Neo4j and Zilliz integration",
+
+  "global": {
+    "indent": 2,
+    "quotes": "single",
+    "lineLength": 100,
+    "baseStructure": {
+      "client": {
+        "folders": ["assets", "auth", "core", "user", "post", "cms", "ai_agent", "test_persona", "notifications"],
+        "required": true
+      },
+      "server": {
+        "folders": ["controllers", "models", "routes", "middlewares", "services", "utils"],
+        "required": true
+      },
+      "config": {
+        "required": true
+      }
+    }
+  },
+
+  "techStack": {
+    "frontend": {
+      "name": "React Frontend Rules",
+      "version": "^16.8.0",
+      "rules": [
+        {
+          "name": "React Components",
+          "pattern": "**/*.{jsx,tsx}",
+          "level": "error",
+          "rules": [
+            {
+              "description": "Hooks rules",
+              "test": "use[A-Z]",
+              "rules": [
+                "Only call Hooks at the top level",
+                "Only call Hooks from React function components",
+                "Custom Hooks must start with 'use'"
+              ]
+            },
+            {
+              "description": "React.memo usage",
+              "test": "React\\.memo|memo",
+              "message": "Use memo for expensive renders"
+            },
+            {
+              "description": "useCallback/useMemo",
+              "test": "use(Callback|Memo)",
+              "message": "Optimize re-renders with useCallback/useMemo"
+            }
+          ]
+        },
+        {
+          "name": "Material-UI Usage",
+          "pattern": "**/components/**/*.{jsx,tsx}",
+          "level": "warning",
+          "rules": [
+            {
+              "description": "Theme usage",
+              "test": "makeStyles|useTheme|withStyles",
+              "message": "Use Material-UI theming system"
+            },
+            {
+              "description": "JSS patterns",
+              "test": "const\\s+useStyles\\s+=\\s+makeStyles",
+              "message": "Follow Material-UI styling patterns"
+            }
+          ]
+        }
+      ]
+    },
+
+    "backend": {
+      "name": "Node/Express Backend Rules",
+      "version": {
+        "node": ">=14.0.0",
+        "express": "^4.17.1"
+      },
+      "rules": [
+        {
+          "name": "Express Middleware",
+          "pattern": "server/**/*.js",
+          "level": "error",
+          "rules": [
+            {
+              "description": "Error handling middleware",
+              "test": "app\\.use\\((err,\\s*req,\\s*res,\\s*next)",
+              "message": "Implement proper error handling middleware"
+            },
+            {
+              "description": "Request processing",
+              "test": "express\\.json\\(\\)|express\\.urlencoded",
+              "message": "Use proper request processing middleware"
+            }
+          ]
+        },
+        {
+          "name": "MongoDB/Mongoose",
+          "version": "^6.0.0",
+          "pattern": "server/models/**/*.js",
+          "level": "error",
+          "rules": [
+            {
+              "description": "Schema definition",
+              "test": "new\\s+mongoose\\.Schema",
+              "message": "Use Mongoose schema for models"
+            },
+            {
+              "description": "Index definition",
+              "test": "\\.index\\(",
+              "message": "Define indexes for performance"
+            },
+            {
+              "description": "Middleware hooks",
+              "test": "pre\\(|post\\(",
+              "message": "Use Mongoose middleware appropriately"
+            }
+          ]
+        },
+        {
+          "name": "Neo4j Integration",
+          "pattern": "server/services/neo4jService.js",
+          "level": "error",
+          "rules": [
+            {
+              "description": "Cypher Queries",
+              "test": "session\\.run\\(",
+              "message": "Implement Cypher queries for Neo4j operations"
+            },
+            {
+              "description": "Graph Relationship Management",
+              "test": "(CREATE|MATCH)\\s\\(\\w+:\\w+\\)-\\[:\\w+\\]->\\(\\w+:\\w+\\)",
+              "message": "Use proper graph relationship patterns"
+            }
+          ]
+        }
+      ]
+    }
+  },
+
+  "rules": [
+    {
+      "name": "Base MERN Structure",
+      "pattern": "**/*",
+      "level": "error",
+      "rules": [
+        {
+          "description": "Maintain MERN skeleton structure",
+          "test": "^(client|server|config)/",
+          "message": "Follow MERN directory structure"
+        },
+        {
+          "description": "Webpack configuration",
+          "test": "webpack\\.config\\.(client|server)\\.js",
+          "message": "Maintain separate webpack configs"
+        }
+      ]
+    },
+
+    {
+      "name": "Component Rules",
+      "pattern": "client/**/*.{js,jsx}",
+      "level": "error",
+      "rules": [
+        {
+          "description": "Component structure",
+          "test": "(class\\s+\\w+\\s+extends\\s+Component|function\\s+\\w+\\s*\\(|const\\s+\\w+\\s*=\\s*\\()",
+          "message": "Use proper component definition"
+        },
+        {
+          "description": "Hot export",
+          "test": "export\\s+default\\s+hot\\(module\\)",
+          "message": "Use hot module replacement for development"
+        }
+      ]
+    },
+    {
+      "name": "CMS Rules",
+      "pattern": "client/cms/**/*.{js,jsx}",
+      "level": "error",
+      "rules": [
+        {
+          "description": "Vector Database Integration",
+          "test": "(pinecone|weaviate|qdrant|zilliz)",
+          "message": "Implement vector database connection"
+        },
+        {
+          "description": "Batch Processing",
+          "test": "(batchSize|processBatch|streamProcess)",
+          "message": "Implement proper batch/stream processing"
+        },
+        {
+          "description": "Content Processing",
+          "test": "(processContent|vectorize|embedContent)",
+          "message": "Implement content processing pipeline"
+        }
+      ]
+    },
+
+    {
+      "name": "AI Agent Rules",
+      "pattern": "client/ai_agent/**/*.{js,jsx}",
+      "level": "error",
+      "rules": [
+        {
+          "description": "RAG Implementation",
+          "test": "(retrieveContext|generateResponse|augmentQuery)",
+          "message": "Implement RAG pipeline correctly"
+        },
+        {
+          "description": "Chat Implementation",
+          "test": "(chatHistory|messageThread|conversationContext)",
+          "message": "Implement chat functionality properly"
+        },
+        {
+          "description": "Recommendation System",
+          "test": "(recommendItems|generateSuggestions|similarityScore)",
+          "message": "Implement recommendation logic"
+        }
+      ]
+    },
+
+    {
+      "name": "Test Persona Rules",
+      "pattern": "client/test_persona/**/*.{js,jsx}",
+      "level": "error",
+      "rules": [
+        {
+          "description": "Quiz Structure",
+          "test": "(QuizComponent|TestStructure|QuestionBank)",
+          "message": "Implement proper quiz structure"
+        },
+        {
+          "description": "Score Calculation",
+          "test": "(calculateScore|evaluateAnswers|gradingSystem)",
+          "message": "Implement scoring system"
+        }
+      ]
+    },
+
+    {
+      "name": "Notification Rules",
+      "pattern": "client/notifications/**/*.{js,jsx}",
+      "level": "error",
+      "rules": [
+        {
+          "description": "Notification structure",
+          "test": "(sendNotification|createNotification|receiveNotification)",
+          "message": "Implement proper notification system"
+        },
+        {
+          "description": "Real-time notifications",
+          "test": "(Socket|WebSocket|pushNotification)",
+          "message": "Use WebSockets or push notifications for real-time updates"
+        }
+      ]
+    },
+
+    {
+      "name": "Security Rules",
+      "pattern": "**/*.{js,jsx}",
+      "level": "error",
+      "rules": [
+        {
+          "description": "Authentication Check",
+          "test": "(isAuthenticated|requireSignin)",
+          "message": "Implement authentication checks"
+        },
+        {
+          "description": "Authorization",
+          "test": "(hasAuthorization|isAuthorized)",
+          "message": "Implement authorization checks"
+        },
+        {
+          "description": "Input Validation",
+          "test": "(validate|sanitize)",
+          "message": "Implement input validation"
+        }
+      ]
+    }
+  ],
+
+  "dependencies": {
+    "required": {
+      "frontend": [
+        {"react": "^16.8.0"},
+        {"react-dom": "^16.8.0"},
+        {"@material-ui/core": "^4.0.0"},
+        {"react-router-dom": "^5.0.0"}
+      ],
+      "backend": [
+        {"express": "^4.17.1"},
+        {"mongoose": "^6.0.0"},
+        {"jsonwebtoken": "^8.5.1"},
+        {"neo4j-driver": "^4.0.0"}
+      ],
+      "ai": [
+        {"langchain": "^0.0.x"},
+        {"openai": "^4.0.0"}
+      ],
+      "vectorDB": [
+        {"pinecone-client": "^1.0.0"},
+        {"zilliz": "^0.10.0"}
+      ]
+    }
+  },
+
+  "prompts": {
+    "core": {
+      "newComponent": {
+        "template": "Creating new TRM component...",
+        "params": ["componentName", "moduleType", "requiresAuth"],
+        "context": [
+          "Extend MERN social base architecture",
+          "Follow component lifecycle patterns",
+          "Implement error boundaries",
+          "Add performance optimizations"
+        ],
+        "examples": [
+          {
+            "description": "Basic component structure",
+            "code": "import React, { useState, useEffect } from 'react'\nimport PropTypes from 'prop-types'\n\nconst ComponentName = ({ prop1, prop2 }) => {\n  // Implementation\n}"
+          }
+        ]
+      }
+    },
+
+    "cms": {
+      "contentProcessor": {
+        "template": "Implementing content processing pipeline...",
+        "params": ["contentType", "vectorDb", "batchSize"],
+        "context": [
+          "Vector embedding process",
+          "Batch processing strategy",
+          "Error handling and retry logic",
+          "Progress tracking"
+        ],
+        "components": {
+          "processor": {
+            "description": "Content processing component",
+            "structure": [
+              "Input validation",
+              "Content chunking",
+              "Vector embedding",
+              "Database storage",
+              "Error handling"
+            ]
+          }
+        }
+      }
+    },
+
+    "aiAgent": {
+      "ragSystem": {
+        "template": "Building RAG system...",
+        "params": ["retrievalMethod", "embeddingModel", "dataSource"],
+        "context": [
+          "Document retrieval strategy",
+          "Query processing",
+          "Response generation",
+          "Context augmentation"
+        ],
+        "pipeline": {
+          "retrieval": [
+            "Query preprocessing",
+            "Vector similarity search",
+            "Context ranking",
+            "Context merging"
+          ],
+          "generation": [
+            "Prompt construction",
+            "Response generation",
+            "Output formatting",
+            "Citation tracking"
+          ]
+        }
+      }
+    }
+  },
+
+  "documentation": {
+    "required": true,
+    "rules": [
+      "JSDoc for all components",
+      "API documentation",
+      "Architecture decisions",
+      "Setup instructions"
+    ],
+    "templates": {
+      "component": {
+        "structure": [
+          "Component description",
+          "Props definition",
+          "Usage examples",
+          "Dependencies"
+        ]
+      },
+      "api": {
+        "structure": [
+          "Endpoint description",
+          "Request/Response format",
+          "Authentication requirements",
+          "Error handling"
+        ]
+      }
+    }
+  }
+}
