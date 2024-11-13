@@ -16,7 +16,7 @@ ENV NODE_ENV=production
 ENV NODE_OPTIONS=--openssl-legacy-provider
 
 # Build the app
-RUN npm run build
+RUN npm ci
 
 # Start the app
 CMD ["npm", "start"]
