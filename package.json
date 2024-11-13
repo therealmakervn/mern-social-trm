@@ -18,11 +18,9 @@
   "homepage": "https://github.com/therealmakervn/mern-social-trm",
   "main": "./dist/server.generated.js",
   "scripts": {
-    "development": "SET NODE_OPTIONS=--openssl-legacy-provider && npx webpack --mode=development --config webpack.config.server.js && nodemon --exec \"npx webpack --mode=development --config webpack.config.server.js && node ./dist/server.generated.js\"",
-    "build": "webpack --config webpack.config.client.production.js && webpack --mode=production --config webpack.config.server.js",
-    "build:server": "webpack --config webpack.config.client.production.js && webpack --mode=production --config webpack.config.server.js",
-    "start": "NODE_ENV=production node ./dist/server.generated.js",
-    "heroku-postbuild": "npm run build"
+    "development": "NODE_OPTIONS=--openssl-legacy-provider webpack --mode=development --config webpack.config.server.js && nodemon",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider webpack --config webpack.config.client.production.js && webpack --mode=production --config webpack.config.server.js",
+    "start": "NODE_ENV=production node ./dist/server.generated.js"
   },
   "engines": {
     "node": "13.12.0",
