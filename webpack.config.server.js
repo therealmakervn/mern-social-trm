@@ -4,6 +4,7 @@ const CURRENT_WORKING_DIR = process.cwd()
 
 const config = {
     name: "server",
+    mode: "production",
     entry: [ path.join(CURRENT_WORKING_DIR , './server/server.js') ],
     target: "node",
     output: {
@@ -18,11 +19,20 @@ const config = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: [ 'babel-loader' ]
+                use: ['babel-loader']
             },
             {
-                test: /\.(ttf|eot|svg|gif|jpg|png)(\?[\s\S]+)?$/,
-                use: 'file-loader'
+                test: /\.(png|jpg|jpeg|gif|svg|bmp|webp)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            outputPath: 'images/',
+                            emitFile: false // Quan trọng cho server build
+                        }
+                    }
+                ]
             }
         ]
     }

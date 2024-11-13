@@ -16,18 +16,27 @@ const config = {
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                use: [
-                    'babel-loader'
-                ]
+                use: ['babel-loader']
             },
             {
-                test: /\.(ttf|eot|svg|gif|jpg|png)(\?[\s\S]+)?$/,
-                use: 'file-loader'
+                test: /\.(png|jpg|jpeg|gif|svg|bmp|webp)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            outputPath: 'images/'
+                        }
+                    }
+                ]
             }
         ]
     },
+    resolve: {
+        extensions: ['.js', '.jsx']
+    },
     optimization: {
-      minimize: true
+        minimize: true
     }
 }
 
